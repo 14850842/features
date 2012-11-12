@@ -40,7 +40,8 @@ function woothemes_features ( $args = '' ) {
 		'size' => 50, 
 		'per_row' => 3, 
 		'link_title' => true, 
-		'title' => ''
+		'title' => '',
+		'link_img'=>false
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
@@ -90,6 +91,9 @@ function woothemes_features ( $args = '' ) {
 
 				// Optionally display the image, if it is available.
 				if ( isset( $post->image ) && ( '' != $post->image ) ) {
+					if (true == $arg['link_img']) {
+					$template = '<a href="' . esc_url( $post->url ) . '" title="' . esc_attr( $title ) . '">' . $template . '</a>'; 
+					}
 					$template = str_replace( '%%IMAGE%%', $post->image, $template );
 				} else {
 					$template = str_replace( '%%IMAGE%%', '', $template );
@@ -136,7 +140,8 @@ function woothemes_features_shortcode ( $atts, $content = null ) {
 		'echo' => true, 
 		'size' => 50, 
 		'per_row' => 3, 
-		'link_title' => true
+		'link_title' => true,
+		'link_img' => true
 	);
 
 	$args = shortcode_atts( $defaults, $atts );
